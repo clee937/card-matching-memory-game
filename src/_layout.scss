@@ -1,0 +1,35 @@
+@use "./_variables" as *;
+
+body {
+  background-image: url("assets/background.jpg");
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.game {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
+  gap: 2rem;
+  padding: 20px;
+  margin: 50px 0;
+  width: 600px;
+
+  .card {
+    background-color: $color-background;
+    border: 5px solid $color-border;
+    border-radius: 10px;
+    padding: 50px 10px;
+    width: 120px;
+
+    &__image {
+      background-color: #76ace3;
+      width: 100%;
+      display: block;
+    }
+
+    &__front {
+      display: none;
+    }
+  }
+}
