@@ -4,9 +4,20 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Super Mario Match</title>
+    <title>Mario's Super Match</title>
   </head>
   <body>
+    <h1 class="title">Mario's Super Match</h1>
+    <p class="time-remaining">Time: <span class="seconds">45</span></p>
+    <div class="overlay overlay--visible overlay__start">START</div>
+    <div class="overlay overlay__win">
+      YOU WIN!
+      <p class="overlay__restart">Click to restart</p>
+    </div>
+    <div class="overlay overlay__gameover">
+      GAME OVER
+      <p class="overlay__restart">Click to restart</p>
+    </div>
     <div class="game">
       <div class="card">
         <div class="card__back card__face">

@@ -1,0 +1,39 @@
+@keyframes rock {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+
+  25% {
+    transform: rotate(-5deg);
+  }
+
+  75% {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes jump {
+  0% {
+    bottom: 50px;
+  }
+
+  50% {
+    bottom: 0;
+  }
+
+  100% {
+    bottom: 50px;
+  }
+}
+
+@keyframes overlay-entrance {
+  from {
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 0;
+  }
+  to {
+    background-color: rgba(0, 0, 0, 0.8);
+    font-size: 10em;
+  }
+}
