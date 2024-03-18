@@ -1,0 +1,26 @@
+@use "./_animation";
+
+.overlay {
+  display: none;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  font-size: 6rem;
+
+  &__restart {
+    font-size: 4rem;
+  }
+
+  //   &__start--visible,
+  //   &__win--visible,
+  &--visible {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    animation: overlay-entrance 500ms forwards;
+  }
+}
