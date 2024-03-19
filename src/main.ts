@@ -6,6 +6,8 @@ const secondsRemaining = document.querySelector<HTMLSpanElement>(".seconds");
 const gameOver = document.querySelector<HTMLDivElement>(".overlay__gameover");
 const youWin = document.querySelector<HTMLDivElement>(".overlay__win");
 
+let numberOfCardsUpturned: number = 0;
+
 if (
   !cardContainer ||
   cards.length === 0 ||
@@ -22,18 +24,18 @@ const removeOverlay = (event: Event): void => {
   target.classList.remove("overlay--visible");
 };
 
-const showGameOver = () => {
-  gameOver.classList.add("overlay--visible");
-};
+// const showGameOver = () => {
+//   gameOver.classList.add("overlay--visible");
+// };
 
 const startTimer = (): void => {
-  let count = 45;
+  let count = 10;
   const timer = setInterval(function () {
     count--;
     secondsRemaining.innerText = count.toString();
     if (count === 0) {
       clearInterval(timer);
-      showGameOver();
+      // showGameOver();
     }
   }, 1000);
 };
@@ -63,6 +65,19 @@ const startGame = (event: Event): void => {
 const showCardFace = (event: Event) => {
   const target = event.currentTarget as HTMLDivElement;
   target.classList.add("card--visible");
+  console.log(`${target.classList}`);
+};
+
+const countUpturnedCards = () => {
+  numberOfCardsUpturned++;
+  return numberOfCardsUpturned;
+};
+
+const handleCardClick = (event: Event) => {
+  const numberOfCardsClicked = countUpturnedCards();
+  console.log(numberOfCardsClicked);
+
+  showCardFace(event);
 };
 
 overlays.forEach((overlay) => {
@@ -70,18 +85,5 @@ overlays.forEach((overlay) => {
 });
 
 cards.forEach((card) => {
-  card.addEventListener("click", showCardFace, true);
+  card.addEventListener("click", handleCardClick);
 });
-
-// 1. When the user clicks the start, remove visible class for the overlay, and start the timer and the audio
-
-// 2. Shuffle the cards. Function.
-
-// 3. When a user clicks a card, turn it over and leave up turned.
-// event handler to handle card click
-
-// 4. When 2 cards are upturned, check if they are a match. If they match, leave them upturned. If they don't turn them back over to their original position. Function
-
-// 5. When all the cards have been upturned, show the win overlay, stop timer and audio/play win audio. When restart is clicked, restart the game
-
-// 6. If the timer runs out before all the cards have been turned, show the game over overlay. When restart is clicked, restart the game
