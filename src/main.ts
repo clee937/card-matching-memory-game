@@ -27,11 +27,11 @@ const showGameOver = () => {
 };
 
 const startTimer = (): void => {
-  let seconds = 45;
+  let count = 45;
   const timer = setInterval(function () {
-    seconds--;
-    secondsRemaining.innerText = seconds.toString();
-    if (seconds === 0) {
+    count--;
+    secondsRemaining.innerText = count.toString();
+    if (count === 0) {
       clearInterval(timer);
       showGameOver();
     }
@@ -60,12 +60,28 @@ const startGame = (event: Event): void => {
   // startAudio();
 };
 
-const showCardFace = () => {};
+const showCardFace = (event: Event) => {
+  const target = event.currentTarget as HTMLDivElement;
+  target.classList.add("card--visible");
+};
 
 overlays.forEach((overlay) => {
   overlay.addEventListener("click", startGame);
 });
 
 cards.forEach((card) => {
-  card.addEventListener("click", showCardFace);
+  card.addEventListener("click", showCardFace, true);
 });
+
+// 1. When the user clicks the start, remove visible class for the overlay, and start the timer and the audio
+
+// 2. Shuffle the cards. Function.
+
+// 3. When a user clicks a card, turn it over and leave up turned.
+// event handler to handle card click
+
+// 4. When 2 cards are upturned, check if they are a match. If they match, leave them upturned. If they don't turn them back over to their original position. Function
+
+// 5. When all the cards have been upturned, show the win overlay, stop timer and audio/play win audio. When restart is clicked, restart the game
+
+// 6. If the timer runs out before all the cards have been turned, show the game over overlay. When restart is clicked, restart the game
