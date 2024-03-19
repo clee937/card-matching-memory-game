@@ -7,6 +7,7 @@ const gameOver = document.querySelector<HTMLDivElement>(".overlay__gameover");
 const youWin = document.querySelector<HTMLDivElement>(".overlay__win");
 
 let numberOfCardsUpturned: number = 0;
+const cardsToCheck: Array<HTMLDivElement> = [];
 
 if (
   !cardContainer ||
@@ -70,12 +71,28 @@ const showCardFace = (event: Event) => {
 
 const countUpturnedCards = () => {
   numberOfCardsUpturned++;
+  console.log(numberOfCardsUpturned);
   return numberOfCardsUpturned;
 };
 
+const addToCardsToCheckArray = (card: HTMLDivElement) => {
+  cardsToCheck.push(card);
+};
+
+// const checkCardsMatch = (card: HTMLDivElement) => {};
+
 const handleCardClick = (event: Event) => {
+  const card = event.currentTarget as HTMLDivElement;
+
+  // increases card click counter
   const numberOfCardsClicked = countUpturnedCards();
-  console.log(numberOfCardsClicked);
+
+  // if the card counter is 2 return from the function
+  if (numberOfCardsClicked > 2) return;
+
+  // add to cards to check array
+  addToCardsToCheckArray(card);
+  console.log(cardsToCheck);
 
   showCardFace(event);
 };
