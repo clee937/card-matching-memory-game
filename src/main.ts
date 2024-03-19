@@ -1,11 +1,13 @@
 import "./styles/style.scss";
-const cards = document.querySelectorAll<HTMLDivElement>(".card");
+const cardContainer = document.querySelector<HTMLDivElement>(".game");
+const cards = [...document.querySelectorAll<HTMLDivElement>(".card")];
 const overlays = document.querySelectorAll<HTMLDivElement>(".overlay");
 const secondsRemaining = document.querySelector<HTMLSpanElement>(".seconds");
 const gameOver = document.querySelector<HTMLDivElement>(".overlay__gameover");
 const youWin = document.querySelector<HTMLDivElement>(".overlay__win");
 
 if (
+  !cardContainer ||
   cards.length === 0 ||
   overlays.length === 0 ||
   !secondsRemaining ||
@@ -25,21 +27,34 @@ const showGameOver = () => {
 };
 
 const startTimer = (): void => {
-  let count = 45;
+  let seconds = 45;
   const timer = setInterval(function () {
-    count--;
-    secondsRemaining.innerText = count.toString();
-    console.log(count);
-    if (count === 0) {
+    seconds--;
+    secondsRemaining.innerText = seconds.toString();
+    if (seconds === 0) {
       clearInterval(timer);
       showGameOver();
-      console.log("Time's up!");
     }
   }, 1000);
 };
 
-const startGame = (event: Event) => {
-  // shuffleCards();
+const shuffleCards = (arrayOfCards: any) => {
+  for (let i = arrayOfCards.length - 1; i >= 0; i--) {
+    const randomIndex = Math.floor((i + 1) * Math.random());
+    const randomValue = arrayOfCards[randomIndex];
+    arrayOfCards[randomIndex] = arrayOfCards[i];
+    arrayOfCards[i] = randomValue;
+  }
+  return arrayOfCards;
+};
+
+const startGame = (event: Event): void => {
+  const shuffledCards = shuffleCards(cards);
+
+  shuffledCards.forEach((card: any) => {
+    cardContainer.appendChild(card);
+  });
+
   removeOverlay(event);
   startTimer();
   // startAudio();
