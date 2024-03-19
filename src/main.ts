@@ -20,18 +20,25 @@ const removeOverlay = (event: Event): void => {
   target.classList.remove("overlay--visible");
 };
 
+const showGameOver = () => {
+  gameOver.classList.add("overlay--visible");
+};
+
 const startTimer = (): void => {
   let count = 45;
   const timer = setInterval(function () {
     count--;
     secondsRemaining.innerText = count.toString();
+    console.log(count);
     if (count === 0) {
       clearInterval(timer);
+      showGameOver();
+      console.log("Time's up!");
     }
   }, 1000);
 };
 
-const startGame = (event: Event): void => {
+const startGame = (event: Event) => {
   // shuffleCards();
   removeOverlay(event);
   startTimer();
