@@ -4,11 +4,19 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.cdnfonts.com/css/seven-segment"
+      rel="stylesheet"
+    />
     <title>Mario's Super Match</title>
   </head>
   <body>
     <h1 class="title">Mario's Super Match</h1>
-    <p class="time-remaining">Time: <span class="seconds">45</span></p>
+    <p class="instructions">
+      Match up all cards before the timer runs out to win the game.
+    </p>
+    <p class="time-remaining">Time: <span class="seconds">90</span></p>
+
     <div class="overlay overlay--visible overlay__start">START</div>
     <div class="overlay overlay__win">
       YOU WIN!
@@ -23,62 +31,62 @@
         <div class="card__back card__face">
           <img
             class="card__image"
-            src="assets/super-mario.png"
+            src="assets/images/super-mario.png"
             alt="Super Mario"
           />
         </div>
         <div class="card__front card__face">
-          <img class="card__image" src="assets/mario.png" alt="Mario" />
+          <img class="card__image" src="assets/images/mario.png" alt="Mario" />
         </div>
       </div>
       <div class="card">
         <div class="card__back card__face">
           <img
             class="card__image"
-            src="assets/super-mario.png"
+            src="assets/images/super-mario.png"
             alt="Super Mario"
           />
         </div>
         <div class="card__front card__face">
-          <img class="card__image" src="assets/mario.png" alt="Mario" />
+          <img class="card__image" src="assets/images/mario.png" alt="Mario" />
         </div>
       </div>
       <div class="card">
         <div class="card__back card__face">
           <img
             class="card__image"
-            src="assets/super-mario.png"
+            src="assets/images/super-mario.png"
             alt="Super Mario"
           />
         </div>
         <div class="card__front card__face">
-          <img class="card__image" src="assets/luigi.png" alt="Luigi" />
+          <img class="card__image" src="assets/images/luigi.png" alt="Luigi" />
         </div>
       </div>
       <div class="card">
         <div class="card__back card__face">
           <img
             class="card__image"
-            src="assets/super-mario.png"
+            src="assets/images/super-mario.png"
             alt="Super Mario"
           />
         </div>
         <div class="card__front card__face">
-          <img class="card__image" src="assets/luigi.png" alt="Luigi" />
+          <img class="card__image" src="assets/images/luigi.png" alt="Luigi" />
         </div>
       </div>
       <div class="card">
         <div class="card__back card__face">
           <img
             class="card__image"
-            src="assets/super-mario.png"
+            src="assets/images/super-mario.png"
             alt="Super Mario"
           />
         </div>
         <div class="card__front card__face">
           <img
             class="card__image"
-            src="assets/princess-peach.png"
+            src="assets/images/princess-peach.png"
             alt="Princess Peach"
           />
         </div>
@@ -87,14 +95,14 @@
         <div class="card__back card__face">
           <img
             class="card__image"
-            src="assets/super-mario.png"
+            src="assets/images/super-mario.png"
             alt="Super Mario"
           />
         </div>
         <div class="card__front card__face">
           <img
             class="card__image"
-            src="assets/princess-peach.png"
+            src="assets/images/princess-peach.png"
             alt="Princess Peach"
           />
         </div>
@@ -103,62 +111,62 @@
         <div class="card__back card__face">
           <img
             class="card__image"
-            src="assets/super-mario.png"
+            src="assets/images/super-mario.png"
             alt="Super Mario"
           />
         </div>
         <div class="card__front card__face">
-          <img class="card__image" src="assets/yoshi.png" alt="Yoshi" />
+          <img class="card__image" src="assets/images/yoshi.png" alt="Yoshi" />
         </div>
       </div>
       <div class="card">
         <div class="card__back card__face">
           <img
             class="card__image"
-            src="assets/super-mario.png"
+            src="assets/images/super-mario.png"
             alt="Super Mario"
           />
         </div>
         <div class="card__front card__face">
-          <img class="card__image" src="assets/yoshi.png" alt="Yoshi" />
+          <img class="card__image" src="assets/images/yoshi.png" alt="Yoshi" />
         </div>
       </div>
       <div class="card">
         <div class="card__back card__face">
           <img
             class="card__image"
-            src="assets/super-mario.png"
+            src="assets/images/super-mario.png"
             alt="Super Mario"
           />
         </div>
         <div class="card__front card__face">
-          <img class="card__image" src="assets/toad.png" alt="Toad" />
+          <img class="card__image" src="assets/images/toad.png" alt="Toad" />
         </div>
       </div>
       <div class="card">
         <div class="card__back card__face">
           <img
             class="card__image"
-            src="assets/super-mario.png"
+            src="assets/images/super-mario.png"
             alt="Super Mario"
           />
         </div>
         <div class="card__front card__face">
-          <img class="card__image" src="assets/toad.png" alt="Toad" />
+          <img class="card__image" src="assets/images/toad.png" alt="Toad" />
         </div>
       </div>
       <div class="card">
         <div class="card__back card__face">
           <img
             class="card__image"
-            src="assets/super-mario.png"
+            src="assets/images/super-mario.png"
             alt="Super Mario"
           />
         </div>
         <div class="card__front card__face">
           <img
-            class="card__image bowser"
-            src="assets/bowser.png"
+            class="card__image card__image--bowser"
+            src="assets/images/bowser.png"
             alt="Bowser"
           />
         </div>
@@ -167,14 +175,14 @@
         <div class="card__back card__face">
           <img
             class="card__image"
-            src="assets/super-mario.png"
+            src="assets/images/super-mario.png"
             alt="Super Mario"
           />
         </div>
         <div class="card__front card__face">
           <img
-            class="card__image bowser"
-            src="assets/bowser.png"
+            class="card__image card__image--bowser"
+            src="assets/images/bowser.png"
             alt="Bowser"
           />
         </div>
@@ -183,38 +191,38 @@
         <div class="card__back card__face">
           <img
             class="card__image"
-            src="assets/super-mario.png"
+            src="assets/images/super-mario.png"
             alt="Super Mario"
           />
         </div>
         <div class="card__front card__face">
-          <img class="card__image" src="assets/boo.png" alt="Boo" />
+          <img class="card__image" src="assets/images/boo.png" alt="Boo" />
         </div>
       </div>
       <div class="card">
         <div class="card__back card__face">
           <img
             class="card__image"
-            src="assets/super-mario.png"
+            src="assets/images/super-mario.png"
             alt="Super Mario"
           />
         </div>
         <div class="card__front card__face">
-          <img class="card__image" src="assets/boo.png" alt="Boo" />
+          <img class="card__image" src="assets/images/boo.png" alt="Boo" />
         </div>
       </div>
       <div class="card">
         <div class="card__back card__face">
           <img
             class="card__image"
-            src="assets/super-mario.png"
+            src="assets/images/super-mario.png"
             alt="Super Mario"
           />
         </div>
         <div class="card__front card__face">
           <img
             class="card__image"
-            src="assets/princess-daisy.png"
+            src="assets/images/princess-daisy.png"
             alt="Princess Daisy"
           />
         </div>
@@ -223,19 +231,20 @@
         <div class="card__back card__face">
           <img
             class="card__image"
-            src="assets/super-mario.png"
+            src="assets/images/super-mario.png"
             alt="Super Mario"
           />
         </div>
         <div class="card__front card__face">
           <img
             class="card__image"
-            src="assets/princess-daisy.png"
+            src="assets/images/princess-daisy.png"
             alt="Princess Daisy"
           />
         </div>
       </div>
     </div>
     <script type="module" src="/src/main.ts"></script>
+    <audio src="assets/audio/Mario.mp3"></audio>
   </body>
 </html>

@@ -1,3 +1,4 @@
+@use "./_variables" as *;
 @use "./_animation";
 
 .overlay {
@@ -9,14 +10,14 @@
   left: 0;
   right: 0;
   z-index: 1;
-  font-size: 6rem;
+  font-family: $overlay-font;
+  color: $overlay-font-color;
 
   &__restart {
-    font-size: 4rem;
+    font-size: 2.5rem;
+    color: $overlay-font-color-small;
   }
 
-  //   &__start--visible,
-  //   &__win--visible,
   &--visible {
     display: flex;
     flex-direction: column;
