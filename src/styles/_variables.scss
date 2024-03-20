@@ -1,4 +1,11 @@
-// card colors
+@use "./_animation";
+@use "./_typography";
+
 $color-background-front: #ffffff;
 $color-background-back: #76ace3;
 $color-border: #0685b9;
+
+$overlay-font: "Super Mario 256";
+$overlay-font-small: "Super Mario 256";
+$overlay-font-color: #1a920a;
+$overlay-font-color-small: #18b104;

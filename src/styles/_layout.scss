@@ -2,24 +2,25 @@
 @use "./_animation";
 
 body {
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: center;
-  // align-items: center;
   background: radial-gradient(#fcb140, #ffdd17);
-  background-image: url("assets/background.jpg");
+  background-image: url("assets/images/background.jpg");
   margin: 50px 0;
+  color: #383838;
 }
 
 .time-remaining,
 .title {
   text-align: center;
-  font-size: 30px;
+}
+
+.instructions {
+  text-align: center;
+  margin: 20px;
+  font-weight: 600;
 }
 
 .game {
   display: grid;
-  // grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
   grid-template-columns: repeat(4, auto);
   gap: 1rem;
   padding: 20px;
@@ -86,7 +87,7 @@ body {
       padding: 12px;
     }
 
-    &__front > .card__image.bowser {
+    &__front > .card__image--bowser {
       padding: 3px;
     }
   }
