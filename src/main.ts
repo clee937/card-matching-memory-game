@@ -62,7 +62,24 @@ const shuffleCards = (arrayOfCards: HTMLDivElement[]): HTMLDivElement[] => {
   return arrayOfCards;
 };
 
+const reset = (): void => {
+  cards.forEach((card) => {
+    card.classList.remove("card--visible");
+    card.classList.remove("matched");
+  });
+
+  overlays.forEach((overlay) => {
+    overlay.classList.remove("overlay--visible");
+  });
+
+  clearNumberOfSelectedCards();
+  clearArray(matchedCards);
+  clearArray(selectedCards);
+  secondsRemaining.innerText = "90";
+};
+
 const startGame = (event: Event): void => {
+  reset();
   const shuffledCards = shuffleCards(cards);
 
   shuffledCards.forEach((card: any) => {
