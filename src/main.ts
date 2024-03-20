@@ -6,8 +6,9 @@ const secondsRemaining = document.querySelector<HTMLSpanElement>(".seconds");
 const gameOver = document.querySelector<HTMLDivElement>(".overlay__gameover");
 const youWin = document.querySelector<HTMLDivElement>(".overlay__win");
 
-let numberOfCardsUpturned: number = 0;
-const cardsToCheck: Array<HTMLDivElement> = [];
+let numberOfCardsSelected: number = 0;
+let selectedCards: Array<HTMLDivElement> = [];
+let matchedCards: Array<HTMLDivElement> = [];
 
 if (
   !cardContainer ||
@@ -41,7 +42,7 @@ const startTimer = (): void => {
   }, 1000);
 };
 
-const shuffleCards = (arrayOfCards: any) => {
+const shuffleCards = (arrayOfCards: HTMLDivElement[]): HTMLDivElement[] => {
   for (let i = arrayOfCards.length - 1; i >= 0; i--) {
     const randomIndex = Math.floor((i + 1) * Math.random());
     const randomValue = arrayOfCards[randomIndex];
@@ -63,38 +64,93 @@ const startGame = (event: Event): void => {
   // startAudio();
 };
 
-const showCardFace = (event: Event) => {
-  const target = event.currentTarget as HTMLDivElement;
-  target.classList.add("card--visible");
-  console.log(`${target.classList}`);
+const showCardFace = (card: HTMLDivElement): void => {
+  card.classList.add("card--visible");
 };
 
-const countUpturnedCards = () => {
-  numberOfCardsUpturned++;
-  console.log(numberOfCardsUpturned);
-  return numberOfCardsUpturned;
+const addToArray = (
+  array: HTMLDivElement[],
+  card1: HTMLDivElement,
+  card2?: HTMLDivElement
+): void => {
+  if (typeof card2 !== "undefined") {
+    array.push(card1, card2);
+  } else {
+    array.push(card1);
+  }
 };
 
-const addToCardsToCheckArray = (card: HTMLDivElement) => {
-  cardsToCheck.push(card);
+const checkArrayLength = (array: HTMLDivElement[]): number => {
+  return array.length;
 };
 
-// const checkCardsMatch = (card: HTMLDivElement) => {};
+const getSelectedCards = (array: HTMLDivElement[]): HTMLDivElement[] => {
+  return array;
+};
 
-const handleCardClick = (event: Event) => {
+const clearArray = (array: HTMLDivElement[]): void => {
+  array.length = 0;
+};
+
+const clearNumberOfSelectedCards = (): void => {
+  numberOfCardsSelected = 0;
+};
+
+const hideCardImages = (card1: HTMLDivElement, card2: HTMLDivElement): void => {
+  card1.classList.remove("card--visible");
+  card2.classList.remove("card--visible");
+};
+
+const checkIfSelectedCardsMatch = (): void => {
+  const cardsToCheck = getSelectedCards(selectedCards);
+
+  const card1 = cardsToCheck[0];
+  const card2 = cardsToCheck[1];
+
+  const card1image = card1.getElementsByClassName(
+    "card__image"
+  )[1] as HTMLImageElement;
+  const card2image = card2.getElementsByClassName(
+    "card__image"
+  )[1] as HTMLImageElement;
+
+  if (card1image.alt === card2image.alt) {
+    addToArray(matchedCards, card1, card2);
+    card1.classList.add("matched");
+    card2.classList.add("matched");
+  } else {
+    setTimeout(() => {
+      hideCardImages(card1, card2);
+    }, 1300);
+  }
+  clearArray(selectedCards);
+  clearNumberOfSelectedCards();
+};
+
+const getNumberOfSelectedCards = (): number => {
+  return numberOfCardsSelected;
+};
+
+const incrementCardCounter = (): void => {
+  numberOfCardsSelected++;
+};
+
+const handleCardClick = (event: Event): void => {
   const card = event.currentTarget as HTMLDivElement;
 
-  // increases card click counter
-  const numberOfCardsClicked = countUpturnedCards();
+  if (getNumberOfSelectedCards() > 2) return;
 
-  // if the card counter is 2 return from the function
-  if (numberOfCardsClicked > 2) return;
+  if (card.classList.contains("matched")) return;
 
-  // add to cards to check array
-  addToCardsToCheckArray(card);
-  console.log(cardsToCheck);
+  if (card.classList.contains("card--visible")) return;
 
-  showCardFace(event);
+  incrementCardCounter();
+  showCardFace(card);
+  addToArray(selectedCards, card);
+
+  const selectedCardsLength = checkArrayLength(selectedCards);
+
+  if (selectedCardsLength === 2) checkIfSelectedCardsMatch();
 };
 
 overlays.forEach((overlay) => {
