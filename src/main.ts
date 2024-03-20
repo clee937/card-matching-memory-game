@@ -22,22 +22,32 @@ if (
 }
 
 const removeOverlay = (event: Event): void => {
-  const target = event.target as HTMLDivElement;
+  const target = event.currentTarget as HTMLDivElement;
   target.classList.remove("overlay--visible");
 };
 
-// const showGameOver = () => {
-//   gameOver.classList.add("overlay--visible");
-// };
+const showGameOverScreen = (): void => {
+  gameOver.classList.add("overlay--visible");
+  // play game over audio
+};
+
+const showYouWinScreen = (): void => {
+  setTimeout(function () {
+    youWin.classList.add("overlay--visible");
+  }, 600);
+  // play you win audio
+};
 
 const startTimer = (): void => {
-  let count = 10;
+  let count = 90;
   const timer = setInterval(function () {
     count--;
     secondsRemaining.innerText = count.toString();
     if (count === 0) {
       clearInterval(timer);
-      // showGameOver();
+      showGameOverScreen();
+    } else if (matchedCards.length === 16) {
+      clearInterval(timer);
     }
   }, 1000);
 };
@@ -61,7 +71,6 @@ const startGame = (event: Event): void => {
 
   removeOverlay(event);
   startTimer();
-  // startAudio();
 };
 
 const showCardFace = (card: HTMLDivElement): void => {
@@ -101,6 +110,12 @@ const hideCardImages = (card1: HTMLDivElement, card2: HTMLDivElement): void => {
   card2.classList.remove("card--visible");
 };
 
+const checkForWin = (): void => {
+  if (checkArrayLength(matchedCards) === cards.length) {
+    showYouWinScreen();
+  }
+};
+
 const checkIfSelectedCardsMatch = (): void => {
   const cardsToCheck = getSelectedCards(selectedCards);
 
@@ -118,6 +133,7 @@ const checkIfSelectedCardsMatch = (): void => {
     addToArray(matchedCards, card1, card2);
     card1.classList.add("matched");
     card2.classList.add("matched");
+    checkForWin();
   } else {
     setTimeout(() => {
       hideCardImages(card1, card2);
