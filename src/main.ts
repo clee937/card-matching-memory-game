@@ -5,6 +5,7 @@ const overlays = document.querySelectorAll<HTMLDivElement>(".overlay");
 const secondsRemaining = document.querySelector<HTMLSpanElement>(".seconds");
 const gameOver = document.querySelector<HTMLDivElement>(".overlay__gameover");
 const youWin = document.querySelector<HTMLDivElement>(".overlay__win");
+const audio = document.querySelector<HTMLAudioElement>("audio");
 
 let numberOfCardsSelected: number = 0;
 let selectedCards: Array<HTMLDivElement> = [];
@@ -16,7 +17,8 @@ if (
   overlays.length === 0 ||
   !secondsRemaining ||
   !gameOver ||
-  !youWin
+  !youWin ||
+  !audio
 ) {
   throw new Error("Something went wrong with a query selector");
 }
@@ -28,14 +30,13 @@ const removeOverlay = (event: Event): void => {
 
 const showGameOverScreen = (): void => {
   gameOver.classList.add("overlay--visible");
-  // play game over audio
 };
 
 const showYouWinScreen = (): void => {
   setTimeout(function () {
     youWin.classList.add("overlay--visible");
   }, 600);
-  // play you win audio
+  audio.pause();
 };
 
 const startTimer = (): void => {
@@ -188,6 +189,11 @@ const handleCardClick = (event: Event): void => {
 
 overlays.forEach((overlay) => {
   overlay.addEventListener("click", startGame);
+  overlay.addEventListener("click", () => {
+    audio.volume = 0.1;
+    audio.currentTime = 0;
+    audio.play();
+  });
 });
 
 cards.forEach((card) => {
