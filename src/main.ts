@@ -1,4 +1,6 @@
 import "./styles/style.scss";
+import { fireConfetti } from "./confetti";
+
 const cardContainer = document.querySelector<HTMLDivElement>(".game");
 const cards = [...document.querySelectorAll<HTMLDivElement>(".card")];
 const overlays = document.querySelectorAll<HTMLDivElement>(".overlay");
@@ -48,7 +50,10 @@ const showYouWinScreen = (): void => {
     youWin.classList.add("overlay--visible");
   }, 600);
   gameAudio.pause();
-  winAudio.play();
+  setTimeout(() => {
+    winAudio.play();
+    fireConfetti();
+  }, 300);
 };
 
 const startTimer = (): void => {
@@ -160,10 +165,13 @@ const checkIfSelectedCardsMatch = (): void => {
   )[1] as HTMLImageElement;
 
   if (card1image.alt === card2image.alt) {
-    matchAudio.play();
     addToArray(matchedCards, card1, card2);
     card1.classList.add("matched");
     card2.classList.add("matched");
+
+    setTimeout(() => {
+      matchAudio.play();
+    }, 450);
     checkForWin();
   } else {
     setTimeout(() => {
