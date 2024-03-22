@@ -13,6 +13,8 @@ const winAudio = document.querySelector<HTMLAudioElement>(".audio__win");
 const flipAudio = document.querySelector<HTMLAudioElement>(".audio__flip");
 const gameOverAudio =
   document.querySelector<HTMLAudioElement>(".audio__gameover");
+const yahooAudio = document.querySelector<HTMLAudioElement>(".audio__yahoo");
+const ohnoAudio = document.querySelector<HTMLAudioElement>(".audio__ohno");
 
 let numberOfCardsSelected: number = 0;
 let selectedCards: Array<HTMLDivElement> = [];
@@ -29,7 +31,9 @@ if (
   !matchAudio ||
   !winAudio ||
   !flipAudio ||
-  !gameOverAudio
+  !gameOverAudio ||
+  !yahooAudio ||
+  !ohnoAudio
 ) {
   throw new Error("Something went wrong with a query selector");
 }
@@ -41,19 +45,27 @@ const removeOverlay = (event: Event): void => {
 
 const showGameOverScreen = (): void => {
   gameOver.classList.add("overlay--visible");
-  gameOverAudio.play();
+  ohnoAudio.play();
+  setTimeout(() => {
+    gameOverAudio.play();
+  }, 500);
   gameAudio.pause();
 };
 
 const showYouWinScreen = (): void => {
   setTimeout(function () {
     youWin.classList.add("overlay--visible");
-  }, 600);
+  }, 800);
   gameAudio.pause();
+
+  setTimeout(() => {
+    yahooAudio.play();
+  }, 300);
+
   setTimeout(() => {
     winAudio.play();
     fireConfetti();
-  }, 300);
+  }, 700);
 };
 
 const startTimer = (): void => {
@@ -170,7 +182,9 @@ const checkIfSelectedCardsMatch = (): void => {
     card2.classList.add("matched");
 
     setTimeout(() => {
-      matchAudio.play();
+      if (checkArrayLength(matchedCards) !== 16) {
+        matchAudio.play();
+      }
     }, 450);
     checkForWin();
   } else {
