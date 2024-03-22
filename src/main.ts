@@ -68,7 +68,7 @@ const showYouWinScreen = (): void => {
 };
 
 const startTimer = (): void => {
-  let count = 10;
+  let count = 90;
   const timer = setInterval(function () {
     count--;
     secondsRemaining.innerText = count.toString();
@@ -120,6 +120,7 @@ const startGame = (event: Event): void => {
 
 const showCardFace = (card: HTMLDivElement): void => {
   card.classList.add("card--visible");
+  card.classList.add("card--selected");
 };
 
 const addToArray = (
@@ -174,6 +175,8 @@ const checkIfSelectedCardsMatch = (): void => {
     addToArray(matchedCards, card1, card2);
     card1.classList.add("matched");
     card2.classList.add("matched");
+    card1.classList.remove("card--selected");
+    card2.classList.remove("card--selected");
 
     setTimeout(() => {
       if (checkArrayLength(matchedCards) !== 16) {
@@ -183,10 +186,22 @@ const checkIfSelectedCardsMatch = (): void => {
     checkForWin();
   } else {
     setTimeout(() => {
+      card1.classList.remove("card--selected");
+      card2.classList.remove("card--selected");
       hideCardImages(card1, card2);
     }, 1300);
   }
   clearArray(selectedCards);
+};
+
+const areTwoCardsInPlay = (): boolean => {
+  let counter = 0;
+  cards.forEach((card) => {
+    if (card.classList.contains("card--selected")) {
+      counter++;
+    }
+  });
+  return counter === 2 ? true : false;
 };
 
 const handleCardClick = (event: Event): void => {
@@ -199,6 +214,9 @@ const handleCardClick = (event: Event): void => {
     return;
 
   if (card.classList.contains("card--visible")) return;
+
+  const twoCardsInPlay: boolean = areTwoCardsInPlay();
+  if (twoCardsInPlay) return;
 
   flipAudio.play();
   showCardFace(card);
