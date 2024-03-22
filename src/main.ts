@@ -16,7 +16,6 @@ const gameOverAudio =
 const yahooAudio = document.querySelector<HTMLAudioElement>(".audio__yahoo");
 const ohnoAudio = document.querySelector<HTMLAudioElement>(".audio__ohno");
 
-let numberOfCardsSelected: number = 0;
 let selectedCards: Array<HTMLDivElement> = [];
 let matchedCards: Array<HTMLDivElement> = [];
 
@@ -69,7 +68,7 @@ const showYouWinScreen = (): void => {
 };
 
 const startTimer = (): void => {
-  let count = 90;
+  let count = 10;
   const timer = setInterval(function () {
     count--;
     secondsRemaining.innerText = count.toString();
@@ -102,7 +101,6 @@ const reset = (): void => {
     overlay.classList.remove("overlay--visible");
   });
 
-  clearNumberOfSelectedCards();
   clearArray(matchedCards);
   clearArray(selectedCards);
   secondsRemaining.innerText = "90";
@@ -148,10 +146,6 @@ const clearArray = (array: HTMLDivElement[]): void => {
   array.length = 0;
 };
 
-const clearNumberOfSelectedCards = (): void => {
-  numberOfCardsSelected = 0;
-};
-
 const hideCardImages = (card1: HTMLDivElement, card2: HTMLDivElement): void => {
   card1.classList.remove("card--visible");
   card2.classList.remove("card--visible");
@@ -193,28 +187,20 @@ const checkIfSelectedCardsMatch = (): void => {
     }, 1300);
   }
   clearArray(selectedCards);
-  clearNumberOfSelectedCards();
-};
-
-const getNumberOfSelectedCards = (): number => {
-  return numberOfCardsSelected;
-};
-
-const incrementCardCounter = (): void => {
-  numberOfCardsSelected++;
 };
 
 const handleCardClick = (event: Event): void => {
   const card = event.currentTarget as HTMLDivElement;
 
-  if (getNumberOfSelectedCards() > 2) return;
-
-  if (card.classList.contains("matched")) return;
+  if (
+    card.classList.contains("matched") ||
+    checkArrayLength(selectedCards) === 2
+  )
+    return;
 
   if (card.classList.contains("card--visible")) return;
 
   flipAudio.play();
-  incrementCardCounter();
   showCardFace(card);
   addToArray(selectedCards, card);
 
