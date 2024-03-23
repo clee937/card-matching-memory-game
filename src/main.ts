@@ -1,5 +1,15 @@
 import "./styles/style.scss";
 import { fireConfetti } from "./confetti";
+import {
+  checkArrayLength,
+  getSelectedCards,
+  clearArray,
+  removeOverlay,
+  shuffleCards,
+  addToArray,
+  addClassToElements,
+  removeClassFromElements,
+} from "./utilities";
 
 const cardContainer = document.querySelector<HTMLDivElement>(".game");
 const cards = [...document.querySelectorAll<HTMLDivElement>(".card")];
@@ -15,9 +25,6 @@ const gameOverAudio =
   document.querySelector<HTMLAudioElement>(".audio__gameover");
 const yahooAudio = document.querySelector<HTMLAudioElement>(".audio__yahoo");
 const ohnoAudio = document.querySelector<HTMLAudioElement>(".audio__ohno");
-
-let selectedCards: Array<HTMLDivElement> = [];
-let matchedCards: Array<HTMLDivElement> = [];
 
 if (
   !cardContainer ||
@@ -37,13 +44,11 @@ if (
   throw new Error("Something went wrong with a query selector");
 }
 
-const removeOverlay = (event: Event): void => {
-  const target = event.currentTarget as HTMLDivElement;
-  target.classList.remove("overlay--visible");
-};
+let selectedCards: Array<HTMLDivElement> = [];
+let matchedCards: Array<HTMLDivElement> = [];
 
 const showGameOverScreen = (): void => {
-  gameOver.classList.add("overlay--visible");
+  addClassToElements("overlay--visible", gameOver);
   ohnoAudio.play();
   setTimeout(() => {
     gameOverAudio.play();
@@ -53,7 +58,7 @@ const showGameOverScreen = (): void => {
 
 const showYouWinScreen = (): void => {
   setTimeout(function () {
-    youWin.classList.add("overlay--visible");
+    addClassToElements("overlay--visible", youWin);
   }, 800);
   gameAudio.pause();
 
@@ -81,24 +86,14 @@ const startTimer = (): void => {
   }, 1000);
 };
 
-const shuffleCards = (arrayOfCards: HTMLDivElement[]): HTMLDivElement[] => {
-  for (let i = arrayOfCards.length - 1; i >= 0; i--) {
-    const randomIndex = Math.floor((i + 1) * Math.random());
-    const randomValue = arrayOfCards[randomIndex];
-    arrayOfCards[randomIndex] = arrayOfCards[i];
-    arrayOfCards[i] = randomValue;
-  }
-  return arrayOfCards;
-};
-
-const reset = (): void => {
+const resetGame = (): void => {
   cards.forEach((card) => {
-    card.classList.remove("card--visible");
-    card.classList.remove("matched");
+    removeClassFromElements("card--visible", card);
+    removeClassFromElements("matched", card);
   });
 
   overlays.forEach((overlay) => {
-    overlay.classList.remove("overlay--visible");
+    removeClassFromElements("overlay--visible", overlay);
   });
 
   clearArray(matchedCards);
@@ -107,7 +102,7 @@ const reset = (): void => {
 };
 
 const startGame = (event: Event): void => {
-  reset();
+  resetGame();
   const shuffledCards = shuffleCards(cards);
 
   shuffledCards.forEach((card: any) => {
@@ -116,40 +111,6 @@ const startGame = (event: Event): void => {
 
   removeOverlay(event);
   startTimer();
-};
-
-const showCardFace = (card: HTMLDivElement): void => {
-  card.classList.add("card--visible");
-  card.classList.add("card--selected");
-};
-
-const addToArray = (
-  array: HTMLDivElement[],
-  card1: HTMLDivElement,
-  card2?: HTMLDivElement
-): void => {
-  if (typeof card2 !== "undefined") {
-    array.push(card1, card2);
-  } else {
-    array.push(card1);
-  }
-};
-
-const checkArrayLength = (array: HTMLDivElement[]): number => {
-  return array.length;
-};
-
-const getSelectedCards = (array: HTMLDivElement[]): HTMLDivElement[] => {
-  return array;
-};
-
-const clearArray = (array: HTMLDivElement[]): void => {
-  array.length = 0;
-};
-
-const hideCardImages = (card1: HTMLDivElement, card2: HTMLDivElement): void => {
-  card1.classList.remove("card--visible");
-  card2.classList.remove("card--visible");
 };
 
 const checkForWin = (): void => {
@@ -173,10 +134,8 @@ const checkIfSelectedCardsMatch = (): void => {
 
   if (card1image.alt === card2image.alt) {
     addToArray(matchedCards, card1, card2);
-    card1.classList.add("matched");
-    card2.classList.add("matched");
-    card1.classList.remove("card--selected");
-    card2.classList.remove("card--selected");
+    addClassToElements("card--matched", card1, card2);
+    removeClassFromElements("card--selected", card1, card2);
 
     setTimeout(() => {
       if (checkArrayLength(matchedCards) !== 16) {
@@ -186,9 +145,8 @@ const checkIfSelectedCardsMatch = (): void => {
     checkForWin();
   } else {
     setTimeout(() => {
-      card1.classList.remove("card--selected");
-      card2.classList.remove("card--selected");
-      hideCardImages(card1, card2);
+      removeClassFromElements("card--selected", card1, card2);
+      removeClassFromElements("card--visible", card1, card2);
     }, 1300);
   }
   clearArray(selectedCards);
@@ -219,12 +177,11 @@ const handleCardClick = (event: Event): void => {
   if (twoCardsInPlay) return;
 
   flipAudio.play();
-  showCardFace(card);
+  addClassToElements("card--visible", card);
+  addClassToElements("card--selected", card);
   addToArray(selectedCards, card);
 
-  const selectedCardsLength = checkArrayLength(selectedCards);
-
-  if (selectedCardsLength === 2) checkIfSelectedCardsMatch();
+  if (checkArrayLength(selectedCards) === 2) checkIfSelectedCardsMatch();
 };
 
 overlays.forEach((overlay) => {
