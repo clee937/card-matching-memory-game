@@ -1,6 +1,10 @@
 @use "./_variables" as *;
 @use "./_animation";
 
+html {
+  cursor: url("./../assets/cursors/mushroom.cur"), auto;
+}
+
 body {
   background: radial-gradient(#fcb140, #ffdd17);
   background-image: url("./../assets/images/background.jpg");
@@ -33,7 +37,7 @@ body {
     height: 170px;
     margin: 0 auto;
     position: relative;
-    cursor: pointer;
+    cursor: url("./../assets/cursors/mushroom-hover.cur"), auto;
 
     &__face {
       border-radius: 10px;
